@@ -1,0 +1,10 @@
+echo "|--------------------------------------|"
+echo "| Running NutriaSoft pre-commit script |"
+echo "|--------------------------------------|"
+pnpm lint-staged
+echo "\n"
+echo "|--------------------------------------|"
+echo "|   Running NutriaSoft Test script     |"
+echo "|--------------------------------------|"
+pnpm test
+echo "\n"

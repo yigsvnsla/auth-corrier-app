@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.eol": "\n",
+		"material-icon-theme.activeIconPack": "nest",
+		"editor.fontFamily": "'FiraCode Nerd Font Mono',Consolas, 'Courier New', monospace",
+		"prettier.endOfLine": "lf"
+	}
+}
