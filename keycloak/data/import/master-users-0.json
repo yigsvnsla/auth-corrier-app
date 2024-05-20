@@ -3,7 +3,10 @@
   "users" : [ {
     "id" : "f6ec240a-3216-4b3d-9583-7f56312213f2",
     "username" : "admin",
-    "emailVerified" : false,
+    "firstName" : "firstname",
+    "lastName" : "lastname",
+    "email" : "admin@email.com",
+    "emailVerified" : true,
     "createdTimestamp" : 1716222393430,
     "enabled" : true,
     "totp" : false,
@@ -17,6 +20,9 @@
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "admin", "default-roles-master" ],
+    "clientRoles" : {
+      "auth-nestjs-realm" : [ "manage-events", "view-realm", "query-clients", "manage-authorization", "view-events", "view-clients", "query-users", "query-groups", "view-users", "manage-identity-providers", "create-client", "view-identity-providers", "view-authorization", "manage-users", "manage-clients", "query-realms", "manage-realm" ]
+    },
     "notBefore" : 0,
     "groups" : [ ]
   } ]

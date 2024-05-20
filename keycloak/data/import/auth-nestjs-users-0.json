@@ -1,0 +1,37 @@
+{
+  "realm" : "auth-nestjs",
+  "users" : [ {
+    "id" : "1693fedd-2fa8-4893-b32c-9f73cfd88fae",
+    "username" : "myadmin",
+    "firstName" : "foo",
+    "lastName" : "bar",
+    "email" : "myadmin@email.com",
+    "emailVerified" : true,
+    "createdTimestamp" : 1716233734853,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "realm_admin", "default-roles-auth-nestjs" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "afcb9e35-2fa5-43ae-866e-14781910aa0c",
+    "username" : "service-account-nestjs-app",
+    "emailVerified" : false,
+    "createdTimestamp" : 1716229143417,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "nestjs-app",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-auth-nestjs" ],
+    "clientRoles" : {
+      "nestjs-app" : [ "uma_protection" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
