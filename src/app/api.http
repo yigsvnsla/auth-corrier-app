@@ -1,0 +1,11 @@
+POST http://172.21.192.1:8080/realms/todoAppRealm/protocol/openid-connect/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+&client_id=todoAppClient
+&client_secret=6kAOB2MHpd7hCj0PxSofuNNNPfOaRRLs
+&username=yigsvnsla
+&password=123123
+&grant_type=password
+###
+
+GET http://localhost:3000/
