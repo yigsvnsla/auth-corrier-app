@@ -1,10 +1,8 @@
 import { Provider } from '@nestjs/common';
 import { Issuer } from 'openid-client';
-import { AuthService } from '../services/auth.service';
 import { StrategyOIDC } from '../strategies/OIDC.strategy';
 
 export const ODIC_PROVIDER: Provider = {
-	inject: [AuthService],
 	provide: StrategyOIDC.name,
 	async useFactory() {
 		const { Client } = await Issuer.discover(

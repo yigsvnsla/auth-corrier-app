@@ -10,4 +10,18 @@ content-type: application/x-www-form-urlencoded
 ###
 GET http://localhost:3000/auth/login
 
+###
+POST http://localhost:3000/auth/sing-in HTTP/1.1
+content-type: application/json
+
+{
+	"username":"foo",
+	"password":"123"
+}
+###
+
+
+"solicitudId": "HllClBAFk6-20240611",
+    "eventId": "e88209ea-2931-3634-6f3e-db2fdcee1fa6"
+
 
