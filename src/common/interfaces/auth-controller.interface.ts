@@ -1,6 +1,6 @@
-import { SingInCredentialsDTO } from './dtos/sing-in-dto.interface';
-import { IUser } from './user.interface';
+import { SingInCredentialsDTO } from './dtos/sing-in-dto.dto';
+import { UserDTO } from './user.interface';
 
 export interface IAuthController {
-	SingIn(credentials: SingInCredentialsDTO): Promise<IUser>;
+	SingIn(credentials: SingInCredentialsDTO): Promise<UserDTO>;
 }

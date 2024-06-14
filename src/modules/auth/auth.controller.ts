@@ -1,13 +1,19 @@
 import { IAuthController } from '../../common/interfaces/auth-controller.interface';
-import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.interface';
-import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { IUser } from '../../common/interfaces/user.interface';
+import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.dto';
+import { UserDTO } from '../../common/interfaces/user.interface';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
 import { AUTH_SERVICE_TOKEN } from 'src/common/constants/tokens';
-// import { AuthGuard } from '@nestjs/passport';
-// import { CreateAuthDto } from './dto/create-auth.dto';
-// import { UpdateAuthDto } from './dto/update-auth.dto';
-// import { AuthService } from './services/auth.service';
+import {
+	Body,
+	Controller,
+	Get,
+	HttpCode,
+	HttpStatus,
+	Inject,
+	Post,
+} from '@nestjs/common';
+import { Public } from './decorators/public.decorator';
+// import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController implements IAuthController {
@@ -16,19 +22,20 @@ export class AuthController implements IAuthController {
 	) {}
 
 	@Post('sing-in')
+	@HttpCode(HttpStatus.OK)
 	public async SingIn(
 		@Body() credentials: SingInCredentialsDTO,
-	): Promise<IUser> {
-		console.log(credentials);
-		return this.authService.login(credentials);
+	): Promise<UserDTO> {
+		return await this.authService.login(credentials);
 	}
 
-	// @UseGuards(AuthGuard('StrategyOIDC'))
-
-	// @Get()
-	// findAll() {
-	//   return this.authService.findAll();
-	// }
+	// @UseGuards(JwtAuthGuard)
+	@Public()
+	@Get()
+	findAll() {
+		return 'hola mundo';
+		// return this.authService.findAll();
+	}
 
 	// @Get(':id')
 	// findOne(@Param('id') id: string) {
