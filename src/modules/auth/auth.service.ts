@@ -1,12 +1,19 @@
 import { OIDC_PROVIDER_TOKEN } from './../../common/constants/tokens';
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+	Inject,
+	Injectable,
+	UnauthorizedException,
+	Logger,
+} from '@nestjs/common';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
 import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.dto';
 import { ConfigService } from '@nestjs/config';
-import { Client, IntrospectionResponse } from 'openid-client';
+import { Client, IntrospectionResponse, TokenSet } from 'openid-client';
 
 @Injectable()
 export class AuthServiceImpl implements AuthService {
+	private readonly logger = new Logger('AuthService');
+
 	constructor(
 		@Inject(OIDC_PROVIDER_TOKEN) private readonly oidcCLient: Client,
 		private readonly configService: ConfigService,
@@ -14,6 +21,9 @@ export class AuthServiceImpl implements AuthService {
 
 	public async validateToken(token: string): Promise<IntrospectionResponse> {
 		try {
+			this.logger.log(
+				`Validating token: ...${token.slice(token.length - 50, token.length)}`,
+			);
 			const verifiedToken = await this.oidcCLient.introspect(token);
 			if (verifiedToken.active) return verifiedToken;
 			else throw new UnauthorizedException('Token is not active');
@@ -22,7 +32,14 @@ export class AuthServiceImpl implements AuthService {
 		}
 	}
 
-	public async login({ password, username }: SingInCredentialsDTO) {
+	public async userInfo(token: string) {
+		return await this.oidcCLient.userinfo(token);
+	}
+
+	public async login({
+		password,
+		username,
+	}: SingInCredentialsDTO): Promise<TokenSet> {
 		const grant_type = this.configService.getOrThrow<string>(
 			'APP_CLIENT_GRANT_TYPE',
 		);

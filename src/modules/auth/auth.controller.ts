@@ -1,4 +1,3 @@
-import { IAuthController } from '../../common/interfaces/auth-controller.interface';
 import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.dto';
 import { UserDTO } from '../../common/interfaces/user.interface';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
@@ -7,20 +6,25 @@ import {
 	Body,
 	Controller,
 	Get,
+	Headers,
 	HttpCode,
 	HttpStatus,
 	Inject,
 	Post,
 } from '@nestjs/common';
+// import { Public } from './decorators/public.decorator';
 import { Public } from './decorators/public.decorator';
-// import { JwtAuthGuard } from './guards/jwt.guard';
 
-@Controller('auth')
-export class AuthController implements IAuthController {
+@Controller({
+	path: ['auth'],
+	version: '1',
+})
+export class AuthController {
 	constructor(
 		@Inject(AUTH_SERVICE_TOKEN) private readonly authService: AuthService,
 	) {}
 
+	@Public()
 	@Post('sing-in')
 	@HttpCode(HttpStatus.OK)
 	public async SingIn(
@@ -29,12 +33,10 @@ export class AuthController implements IAuthController {
 		return await this.authService.login(credentials);
 	}
 
-	// @UseGuards(JwtAuthGuard)
-	@Public()
 	@Get()
-	findAll() {
-		return 'hola mundo';
-		// return this.authService.findAll();
+	@HttpCode(HttpStatus.OK)
+	public async findAll(@Headers('authorization') t: string) {
+		return await this.authService.userInfo(t.replace(/Bearer /, '').trim());
 	}
 
 	// @Get(':id')

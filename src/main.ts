@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import * as session from 'express-session';
+import helmet from 'helmet';
 
 async function bootstrap() {
 	const logger = new Logger('NestBoostrap');
-
 	const app = await NestFactory.create(AppModule);
 
+	app.use(helmet());
 	app.enableCors();
+	app.enableVersioning({
+		type: VersioningType.URI,
+	});
 	app.useGlobalPipes(
 		new ValidationPipe({
 			transform: true,

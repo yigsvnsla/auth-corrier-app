@@ -8,7 +8,10 @@ import { APP_GUARD_PROVIDER } from './providers/app-guard.provider';
 
 @Module({
 	imports: [
-		PassportModule.register({ session: true, defaultStrategy: 'http-jwt' }),
+		PassportModule.register({
+			session: true,
+			// defaultStrategy: 'http-jwt'
+		}),
 	],
 	controllers: [AuthController],
 	providers: [JwtStrategy, OIDC_PROVIDER, AUTH_PROVIDER, APP_GUARD_PROVIDER],
