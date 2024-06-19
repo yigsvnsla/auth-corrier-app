@@ -6,9 +6,10 @@ import {
 	Logger,
 } from '@nestjs/common';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
-import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.dto';
+import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in.dto';
 import { ConfigService } from '@nestjs/config';
 import { Client, IntrospectionResponse, TokenSet } from 'openid-client';
+import { SingUpCredentialsDto } from 'src/common/interfaces/dtos/sing-up.dto';
 
 @Injectable()
 export class AuthServiceImpl implements AuthService {
@@ -18,6 +19,11 @@ export class AuthServiceImpl implements AuthService {
 		@Inject(OIDC_PROVIDER_TOKEN) private readonly oidcCLient: Client,
 		private readonly configService: ConfigService,
 	) {}
+	public async register(singUpCredentials: SingUpCredentialsDto): Promise<any> {
+		console.log(this.oidcCLient.issuer.metadata.registration_endpoint);
+		console.log(singUpCredentials);
+		throw new Error('Method not implemented.');
+	}
 
 	public async validateToken(token: string): Promise<IntrospectionResponse> {
 		try {

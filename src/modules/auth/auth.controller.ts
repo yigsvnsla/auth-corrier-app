@@ -1,4 +1,4 @@
-import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in-dto.dto';
+import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in.dto';
 import { UserDTO } from '../../common/interfaces/user.interface';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
 import { AUTH_SERVICE_TOKEN } from 'src/common/constants/tokens';
@@ -12,8 +12,8 @@ import {
 	Inject,
 	Post,
 } from '@nestjs/common';
-// import { Public } from './decorators/public.decorator';
 import { Public } from './decorators/public.decorator';
+import { SingUpCredentialsDto } from 'src/common/interfaces/dtos/sing-up.dto';
 
 @Controller({
 	path: ['auth'],
@@ -23,6 +23,11 @@ export class AuthController {
 	constructor(
 		@Inject(AUTH_SERVICE_TOKEN) private readonly authService: AuthService,
 	) {}
+
+	@Post('sing-up')
+	findOne(@Body() body: SingUpCredentialsDto) {
+		return this.authService.register(body);
+	}
 
 	@Public()
 	@Post('sing-in')
@@ -38,11 +43,6 @@ export class AuthController {
 	public async findAll(@Headers('authorization') t: string) {
 		return await this.authService.userInfo(t.replace(/Bearer /, '').trim());
 	}
-
-	// @Get(':id')
-	// findOne(@Param('id') id: string) {
-	//   return this.authService.findOne(+id);
-	// }
 
 	// @Patch(':id')
 	// update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
