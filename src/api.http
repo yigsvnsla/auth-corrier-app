@@ -29,6 +29,14 @@ POST http://localhost:3000/v1/auth/sing-up HTTP/1.1
 content-type: application/json
 
 {
-	"username":"foo",
-	"password":"123"
+	"username": "newuser",
+	"email": "newuser@example.com",
+	"firstName": "New",
+	"lastName": "User",
+	"enabled": true,
+	"credentials": [{
+			"type": "password",
+			"value": "password123",
+			"temporary": false
+	}]
 }

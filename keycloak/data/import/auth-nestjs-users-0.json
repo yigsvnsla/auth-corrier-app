@@ -1,35 +1,42 @@
 {
   "realm" : "auth-nestjs",
   "users" : [ {
-    "id" : "1693fedd-2fa8-4893-b32c-9f73cfd88fae",
-    "username" : "myadmin",
+    "id" : "ad21af6d-e912-4dd2-9829-2e0432bbac96",
+    "username" : "foo",
     "firstName" : "foo",
     "lastName" : "bar",
-    "email" : "myadmin@email.com",
+    "email" : "foo@bar.mail.com",
     "emailVerified" : true,
-    "createdTimestamp" : 1716233734853,
+    "createdTimestamp" : 1717001837972,
     "enabled" : true,
     "totp" : false,
-    "credentials" : [ ],
+    "credentials" : [ {
+      "id" : "57244d00-a962-42b1-9171-34e3cac46c4a",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1717002811827,
+      "secretData" : "{\"value\":\"lywIIuHNgvX7zrWePj1sVKRwcBcm4MTrB4GITb5hy26bv+HbhzS8USc/CxoUSpkEkfqVpfb+GmtQwBW4ov60LQ==\",\"salt\":\"uQvHGMs8YjJex5Xl+PRGyA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "realm_admin", "default-roles-auth-nestjs" ],
+    "realmRoles" : [ "default-roles-auth-nestjs" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "afcb9e35-2fa5-43ae-866e-14781910aa0c",
-    "username" : "service-account-nestjs-app",
+    "id" : "f1194540-2b34-432e-829b-b7e22c2bf80c",
+    "username" : "service-account-nest-client",
     "emailVerified" : false,
-    "createdTimestamp" : 1716229143417,
+    "createdTimestamp" : 1717001337151,
     "enabled" : true,
     "totp" : false,
-    "serviceAccountClientId" : "nestjs-app",
+    "serviceAccountClientId" : "nest-client",
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-auth-nestjs" ],
     "clientRoles" : {
-      "nestjs-app" : [ "uma_protection" ]
+      "nest-client" : [ "uma_protection" ]
     },
     "notBefore" : 0,
     "groups" : [ ]

@@ -24,6 +24,7 @@ export class AuthController {
 		@Inject(AUTH_SERVICE_TOKEN) private readonly authService: AuthService,
 	) {}
 
+	@Public()
 	@Post('sing-up')
 	findOne(@Body() body: SingUpCredentialsDto) {
 		return this.authService.register(body);

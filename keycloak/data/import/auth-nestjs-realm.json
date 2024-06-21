@@ -62,22 +62,6 @@
       "containerId" : "8e19af2c-b186-45a5-8aac-5a45b1a904c0",
       "attributes" : { }
     }, {
-      "id" : "7dbddcc6-8b57-4e4a-b0fd-61f29b8e8b57",
-      "name" : "realm_user",
-      "description" : "realm user role",
-      "composite" : false,
-      "clientRole" : false,
-      "containerId" : "8e19af2c-b186-45a5-8aac-5a45b1a904c0",
-      "attributes" : { }
-    }, {
-      "id" : "9ecd91aa-7756-43bf-8d59-59dcb0ffc267",
-      "name" : "realm_admin",
-      "description" : "realm admin role",
-      "composite" : false,
-      "clientRole" : false,
-      "containerId" : "8e19af2c-b186-45a5-8aac-5a45b1a904c0",
-      "attributes" : { }
-    }, {
       "id" : "86788047-b2c2-4446-b8b9-89ebf2b02eac",
       "name" : "default-roles-auth-nestjs",
       "description" : "${role_default-roles}",
@@ -93,28 +77,12 @@
       "attributes" : { }
     } ],
     "client" : {
-      "nestjs-app" : [ {
-        "id" : "c7e27d5e-0a47-4541-ac37-500c19ab16c6",
-        "name" : "client_admin",
-        "description" : "client admin role",
-        "composite" : false,
-        "clientRole" : true,
-        "containerId" : "08edff22-47bb-4c9f-b1da-e947f5110bc2",
-        "attributes" : { }
-      }, {
-        "id" : "b3a4dca9-60fa-4373-8ea3-fd0e7826e1e0",
+      "nest-client" : [ {
+        "id" : "920fcfe3-a4b8-4219-bb68-4f3276a03f5a",
         "name" : "uma_protection",
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "08edff22-47bb-4c9f-b1da-e947f5110bc2",
-        "attributes" : { }
-      }, {
-        "id" : "048db577-27a9-4282-8edf-49a1a7ba3e73",
-        "name" : "client_user",
-        "description" : "client user role",
-        "composite" : false,
-        "clientRole" : true,
-        "containerId" : "08edff22-47bb-4c9f-b1da-e947f5110bc2",
+        "containerId" : "ddfe2217-bba0-4d46-94c1-a85f62e765ef",
         "attributes" : { }
       } ],
       "realm-management" : [ {
@@ -547,9 +515,9 @@
     "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
-    "id" : "08edff22-47bb-4c9f-b1da-e947f5110bc2",
-    "clientId" : "nestjs-app",
-    "name" : "",
+    "id" : "ddfe2217-bba0-4d46-94c1-a85f62e765ef",
+    "clientId" : "nest-client",
+    "name" : "nest-client",
     "description" : "",
     "rootUrl" : "",
     "adminUrl" : "",
@@ -558,9 +526,9 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "MGuws0NYlyOh6pnbDeCHbDM2GlRdN2iY",
-    "redirectUris" : [ "http://localhost:3000/*" ],
-    "webOrigins" : [ "http://localhost:3000" ],
+    "secret" : "XSwT7oB5fcNIhxb3NPI0c2XV4FvcTJze",
+    "redirectUris" : [ "*" ],
+    "webOrigins" : [ "" ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : false,
@@ -574,7 +542,7 @@
     "protocol" : "openid-connect",
     "attributes" : {
       "oidc.ciba.grant.enabled" : "false",
-      "client.secret.creation.time" : "1716229143",
+      "client.secret.creation.time" : "1717001337",
       "backchannel.logout.session.required" : "true",
       "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
@@ -584,7 +552,21 @@
     "fullScopeAllowed" : true,
     "nodeReRegistrationTimeout" : -1,
     "protocolMappers" : [ {
-      "id" : "7066abc5-f3b2-47f6-9bb8-55ac61199c24",
+      "id" : "37a463b1-2b81-4638-ad4d-1eb9851dcf98",
+      "name" : "Client IP Address",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "clientAddress",
+        "introspection.token.claim" : "true",
+        "id.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "clientAddress",
+        "jsonType.label" : "String"
+      }
+    }, {
+      "id" : "dd275226-298f-4b44-ae3d-7fbef7093436",
       "name" : "Client Host",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usersessionmodel-note-mapper",
@@ -598,7 +580,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "dc4f4953-9c61-4cba-a2c1-2d73d5a16990",
+      "id" : "24cf2553-b125-4716-af2b-4eea7b9a4f8a",
       "name" : "Client ID",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usersessionmodel-note-mapper",
@@ -611,20 +593,6 @@
         "claim.name" : "client_id",
         "jsonType.label" : "String"
       }
-    }, {
-      "id" : "423dec33-4354-4141-87a3-492b2062f390",
-      "name" : "Client IP Address",
-      "protocol" : "openid-connect",
-      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
-      "consentRequired" : false,
-      "config" : {
-        "user.session.note" : "clientAddress",
-        "introspection.token.claim" : "true",
-        "id.token.claim" : "true",
-        "access.token.claim" : "true",
-        "claim.name" : "clientAddress",
-        "jsonType.label" : "String"
-      }
     } ],
     "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ],
@@ -633,14 +601,14 @@
       "policyEnforcementMode" : "ENFORCING",
       "resources" : [ {
         "name" : "Default Resource",
-        "type" : "urn:nestjs-app:resources:default",
+        "type" : "urn:nest-client:resources:default",
         "ownerManagedAccess" : false,
         "attributes" : { },
-        "_id" : "ce3e7fdd-26b4-419b-b9ec-436d09c3ef46",
+        "_id" : "c903ebbc-5a7b-4212-8836-db37c4047201",
         "uris" : [ "/*" ]
       } ],
       "policies" : [ {
-        "id" : "5aa1fcaa-a35e-45d4-b64c-bafdec8fdead",
+        "id" : "f091b897-5441-47b8-a5a8-76ca13459609",
         "name" : "Default Policy",
         "description" : "A policy that grants access only for users within this realm",
         "type" : "js",
@@ -650,14 +618,14 @@
           "code" : "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
         }
       }, {
-        "id" : "f5ba0b79-4730-4eef-ab90-65a291764f02",
+        "id" : "580fcd3c-e288-454d-9580-3c162dfdcf2c",
         "name" : "Default Permission",
         "description" : "A permission that applies to the default resource type",
         "type" : "resource",
         "logic" : "POSITIVE",
         "decisionStrategy" : "UNANIMOUS",
         "config" : {
-          "defaultResourceType" : "urn:nestjs-app:resources:default",
+          "defaultResourceType" : "urn:nest-client:resources:default",
           "applyPolicies" : "[\"Default Policy\"]"
         }
       } ],
@@ -1241,12 +1209,29 @@
     "xXSSProtection" : "1; mode=block",
     "strictTransportSecurity" : "max-age=31536000; includeSubDomains"
   },
-  "smtpServer" : { },
-  "eventsEnabled" : false,
-  "eventsListeners" : [ "jboss-logging" ],
-  "enabledEventTypes" : [ ],
-  "adminEventsEnabled" : false,
-  "adminEventsDetailsEnabled" : false,
+  "smtpServer" : {
+    "replyToDisplayName" : "",
+    "starttls" : "true",
+    "auth" : "false",
+    "envelopeFrom" : "",
+    "ssl" : "false",
+    "password" : "",
+    "port" : "1025",
+    "replyTo" : "",
+    "host" : "192.168.1.105",
+    "from" : "admin@email.com",
+    "fromDisplayName" : "",
+    "user" : ""
+  },
+  "loginTheme" : "",
+  "accountTheme" : "",
+  "adminTheme" : "",
+  "emailTheme" : "keycloak",
+  "eventsEnabled" : true,
+  "eventsListeners" : [ "jboss-logging", "email" ],
+  "enabledEventTypes" : [ "SEND_RESET_PASSWORD", "UPDATE_CONSENT_ERROR", "GRANT_CONSENT", "VERIFY_PROFILE_ERROR", "REMOVE_TOTP", "REVOKE_GRANT", "UPDATE_TOTP", "LOGIN_ERROR", "CLIENT_LOGIN", "RESET_PASSWORD_ERROR", "IMPERSONATE_ERROR", "CODE_TO_TOKEN_ERROR", "CUSTOM_REQUIRED_ACTION", "OAUTH2_DEVICE_CODE_TO_TOKEN_ERROR", "RESTART_AUTHENTICATION", "CLIENT_INFO", "IMPERSONATE", "UPDATE_PROFILE_ERROR", "LOGIN", "OAUTH2_DEVICE_VERIFY_USER_CODE", "UPDATE_PASSWORD_ERROR", "CLIENT_INITIATED_ACCOUNT_LINKING", "IDENTITY_PROVIDER_LOGIN", "OAUTH2_EXTENSION_GRANT", "USER_DISABLED_BY_PERMANENT_LOCKOUT", "TOKEN_EXCHANGE", "AUTHREQID_TO_TOKEN", "LOGOUT", "REGISTER", "DELETE_ACCOUNT_ERROR", "CLIENT_REGISTER", "IDENTITY_PROVIDER_LINK_ACCOUNT", "USER_DISABLED_BY_TEMPORARY_LOCKOUT", "DELETE_ACCOUNT", "UPDATE_PASSWORD", "CLIENT_DELETE", "FEDERATED_IDENTITY_LINK_ERROR", "IDENTITY_PROVIDER_FIRST_LOGIN", "CLIENT_DELETE_ERROR", "VERIFY_EMAIL", "CLIENT_LOGIN_ERROR", "RESTART_AUTHENTICATION_ERROR", "EXECUTE_ACTIONS", "REMOVE_FEDERATED_IDENTITY_ERROR", "TOKEN_EXCHANGE_ERROR", "PERMISSION_TOKEN", "SEND_IDENTITY_PROVIDER_LINK_ERROR", "EXECUTE_ACTION_TOKEN_ERROR", "OAUTH2_EXTENSION_GRANT_ERROR", "SEND_VERIFY_EMAIL", "OAUTH2_DEVICE_AUTH", "IDENTITY_PROVIDER_RESPONSE", "EXECUTE_ACTIONS_ERROR", "REMOVE_FEDERATED_IDENTITY", "OAUTH2_DEVICE_CODE_TO_TOKEN", "IDENTITY_PROVIDER_POST_LOGIN", "IDENTITY_PROVIDER_LINK_ACCOUNT_ERROR", "OAUTH2_DEVICE_VERIFY_USER_CODE_ERROR", "UPDATE_EMAIL", "REGISTER_ERROR", "REVOKE_GRANT_ERROR", "EXECUTE_ACTION_TOKEN", "LOGOUT_ERROR", "UPDATE_EMAIL_ERROR", "CLIENT_UPDATE_ERROR", "AUTHREQID_TO_TOKEN_ERROR", "UPDATE_PROFILE", "CLIENT_REGISTER_ERROR", "FEDERATED_IDENTITY_LINK", "SEND_IDENTITY_PROVIDER_LINK", "SEND_VERIFY_EMAIL_ERROR", "RESET_PASSWORD", "CLIENT_INITIATED_ACCOUNT_LINKING_ERROR", "OAUTH2_DEVICE_AUTH_ERROR", "UPDATE_CONSENT", "REMOVE_TOTP_ERROR", "VERIFY_EMAIL_ERROR", "SEND_RESET_PASSWORD_ERROR", "CLIENT_UPDATE", "CUSTOM_REQUIRED_ACTION_ERROR", "IDENTITY_PROVIDER_POST_LOGIN_ERROR", "UPDATE_TOTP_ERROR", "CODE_TO_TOKEN", "VERIFY_PROFILE", "GRANT_CONSENT_ERROR", "IDENTITY_PROVIDER_FIRST_LOGIN_ERROR" ],
+  "adminEventsEnabled" : true,
+  "adminEventsDetailsEnabled" : true,
   "identityProviders" : [ ],
   "identityProviderMappers" : [ ],
   "components" : {
@@ -1935,6 +1920,7 @@
     "oauth2DeviceCodeLifespan" : "1800",
     "parRequestUriLifespan" : "60",
     "clientSessionMaxLifespan" : "0",
+    "adminEventsExpiration" : "",
     "shortVerificationUri" : "",
     "actionTokenGeneratedByUserLifespan.reset-credentials" : ""
   },
