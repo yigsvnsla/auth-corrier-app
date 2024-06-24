@@ -5,6 +5,7 @@ import { OIDC_PROVIDER } from './providers/oidc.provider';
 import { AUTH_PROVIDER } from './providers/auth.provider';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { APP_GUARD_PROVIDER } from './providers/app-guard.provider';
+import { APP_INTERCEPTOR_LOGGER_PROVIDER } from './providers/app-logger.provider';
 
 @Module({
 	imports: [
@@ -14,7 +15,13 @@ import { APP_GUARD_PROVIDER } from './providers/app-guard.provider';
 		}),
 	],
 	controllers: [AuthController],
-	providers: [JwtStrategy, OIDC_PROVIDER, AUTH_PROVIDER, APP_GUARD_PROVIDER],
+	providers: [
+		JwtStrategy,
+		OIDC_PROVIDER,
+		AUTH_PROVIDER,
+		APP_GUARD_PROVIDER,
+		APP_INTERCEPTOR_LOGGER_PROVIDER,
+	],
 	exports: [JwtStrategy, OIDC_PROVIDER, AUTH_PROVIDER],
 })
 export class AuthModule {}
