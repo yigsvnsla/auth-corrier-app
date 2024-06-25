@@ -20,7 +20,7 @@ export class LoggerInterceptor implements NestInterceptor {
 		const now = Date.now();
 
 		Logger.log(
-			`{REQUEST} : ${controller.name}-> ${handler.name}: ${request.method} | ${request.url}`,
+			`{REQUEST} : ${controller.name} -> ${handler.name}: ${request.method} | ${request.url}`,
 			LoggerInterceptor.name,
 		);
 
@@ -28,7 +28,7 @@ export class LoggerInterceptor implements NestInterceptor {
 			tap(() => {
 				const delay = Date.now() - now;
 				Logger.log(
-					`{RESPONSE}: ${controller.name}-> ${handler.name}: (${response.statusCode} - ${delay}ms)`,
+					`{RESPONSE}: ${controller.name} <- ${handler.name}: (${response.statusCode} - ${delay}ms)`,
 					LoggerInterceptor.name,
 				);
 			}),

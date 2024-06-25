@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+
+
+  maildev:
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+    environment:
+      MAILDEV_SMTP_PORT: 25
+
   keycloak-nest:
     image: quay.io/keycloak/keycloak:24.0.3
     command: ['start-dev', '--verbose', '--import-realm']
