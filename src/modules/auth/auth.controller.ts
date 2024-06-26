@@ -1,7 +1,7 @@
 import { SingInCredentialsDTO } from '../../common/interfaces/dtos/sing-in.dto';
 import { UserDTO } from '../../common/interfaces/user.interface';
 import { AuthService } from '../../common/interfaces/auth-service.interface';
-import { AUTH_SERVICE_TOKEN } from 'src/common/constants/tokens';
+import { AUTH_SERVICE_TOKEN } from 'src/modules/auth/constants/tokens';
 import {
 	Body,
 	Controller,

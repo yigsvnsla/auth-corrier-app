@@ -1,4 +1,4 @@
-import { OIDC_PROVIDER_TOKEN } from './../../common/constants/tokens';
+import { OIDC_PROVIDER_TOKEN } from './constants/tokens';
 import {
 	Inject,
 	Injectable,

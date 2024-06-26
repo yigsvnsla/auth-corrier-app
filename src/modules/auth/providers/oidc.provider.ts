@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
 import { Issuer } from 'openid-client';
 import { ConfigService } from '@nestjs/config';
-import { OIDC_PROVIDER_TOKEN } from 'src/common/constants/tokens';
+import { OIDC_PROVIDER_TOKEN } from 'src/modules/auth/constants/tokens';
 
 export const OIDC_PROVIDER: Provider = {
 	inject: [ConfigService],
