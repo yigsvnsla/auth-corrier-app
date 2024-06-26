@@ -1,2 +1,0 @@
-export const AUTH_SERVICE_TOKEN = Symbol('AUTH_SERVICE_TOKEN');
-export const OIDC_PROVIDER_TOKEN = Symbol('ODIC_PROVIDER');
