@@ -1,8 +1,8 @@
 import { ConfigurableModuleBuilder } from '@nestjs/common';
-import { ZitadelAuthModuleConfig } from './interfaces/zitadel-auth-module-config.interface';
+import { ZitadelIntrospectionOptions } from 'passport-zitadel';
 
 // https://docs.nestjs.com/fundamentals/dynamic-modules#configurable-module-builder
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN } =
-	new ConfigurableModuleBuilder<ZitadelAuthModuleConfig>()
+	new ConfigurableModuleBuilder<ZitadelIntrospectionOptions>()
 		.setClassMethodName('forRoot')
 		.build();

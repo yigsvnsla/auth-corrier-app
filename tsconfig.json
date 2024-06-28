@@ -18,12 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@zitadel-auth": [
-        "libs/zitadel-auth/src"
-      ],
-      "@zitadel-auth/*": [
-        "libs/zitadel-auth/src/*"
-      ],
+			"@modules/*": ["src/modules/*"]
     }
   }
 }

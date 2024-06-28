@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { ZitadelAuthModule, ZitadelAuthModuleConfig } from '@zitadel-auth';
+// import { ZitadelAuthModule, ZitadelAuthModuleConfig } from '@zitadel-auth';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from '@modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
 	controllers: [AppController],
   providers: [ConfigService, AppService],
 	imports: [
-		ZitadelAuthModule.forRootAsync({
+		AuthModule,
+/* 		ZitadelAuthModule.forRootAsync({
 			inject: [ConfigService],
 			imports: [ConfigModule],
 			useFactory: (config: ConfigService): ZitadelAuthModuleConfig => {
@@ -35,7 +38,7 @@ import { AppService } from './app.service';
 					},
 				};
 			},
-		}),
+		}), */
 		ConfigModule.forRoot({
 			envFilePath: '.dev.env',
 			isGlobal: true,
@@ -43,6 +46,8 @@ import { AppService } from './app.service';
 				abortEarly: true,
 			},
 		}),
+		AuthModule,
+		UsersModule,
 	],
 })
 export class AppModule {}
