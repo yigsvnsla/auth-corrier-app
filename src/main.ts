@@ -8,6 +8,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import {
 	DocumentBuilder,
+	OpenAPIObject,
 	SwaggerCustomOptions,
 	SwaggerModule,
 } from '@nestjs/swagger';
@@ -23,8 +24,23 @@ import {
 	ValidationPipeOptions,
 	VersioningType,
 } from '@nestjs/common';
+import metadata from './metadata';
+import { Issuer } from 'openid-client';
 
 async function bootstrap() {
+	const { Client } = await Issuer.discover('http://localhost:8080');
+	const client = new Client({
+		client_id: '273992634912014357@nest-app',
+		client_secret: '',
+	});
+
+	client.grant({
+		username: 'foo@user',
+		password: 'Password1!!',
+		grant_type: 'authorization_code',
+		scope: 'openid',
+	});
+
 	const globalPrefix: string = '/api';
 	const scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
 	const helmetOptions: HelmetOptions = {};
@@ -80,24 +96,27 @@ async function bootstrap() {
 		.setContact('Contact the developer', '', 'mail@example.com')
 		.setLicense('Apache 2.0', 'http://www.apache.org/licenses/LICENSE-2.0.html')
 		.setVersion('1.0.2')
-
-		// .setVersion(pJson.version)
-		// * Authentication security by token introspection
+		// .addBearerAuth({ in: 'header', type: 'http' })
 		.addSecurity('zitadel-jwt', {
 			type: 'openIdConnect',
 			name: 'Zitadel',
 			openIdConnectUrl: `${authority}/.well-known/openid-configuration`,
 		});
+	await SwaggerModule.loadPluginMetadata(metadata); // <-- here
+	const document: OpenAPIObject = SwaggerModule.createDocument(
+		app,
+		swaggerDocument.build(),
+	);
 
-	const document = SwaggerModule.createDocument(app, swaggerDocument.build());
 	SwaggerModule.setup(globalPrefix.slice(1), app, document, swaggerSetupModule);
+
 	if (isProduction)
 		fs.writeFileSync(
 			path.join(__dirname, '..', 'swagger.json'),
 			JSON.stringify(document),
 		);
 	await app.listen(port);
-	Logger.log(`Server Running on port ${port}`, 'NestApplication');
+	Logger.log(`Server Running on: ${await app.getUrl()}`, 'NestApplication');
 }
 
 bootstrap();

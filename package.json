@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-		"nest": "nest",
+    "nest": "nest",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start -b swc -w",
     "start:debug": "nest start --debug --watch",
@@ -31,6 +31,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "helmet": "^7.1.0",
+    "openid-client": "^5.6.5",
     "passport": "^0.7.0",
     "passport-zitadel": "^1.1.14",
     "reflect-metadata": "^0.2.0",
@@ -81,12 +82,8 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/libs/"
+      "<rootDir>/src/"
     ],
-    "moduleNameMapper": {
-      "^@auth/zitadel-auth(|/.*)$": "<rootDir>/libs/zitadel-auth/src/$1",
-      "^@app/my-library(|/.*)$": "<rootDir>/libs/my-library/src/$1"
-    }
+    "moduleNameMapper": {}
   }
 }

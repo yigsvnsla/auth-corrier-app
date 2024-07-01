@@ -1,21 +1,29 @@
-/* eslint-disable prettier/prettier */
-// import { ZitadelAuthModule, ZitadelAuthModuleConfig } from '@zitadel-auth';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
 import { AuthModule } from '@modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-
+import { ZitadelIntrospectionOptions } from 'passport-zitadel';
+import ZitadelConfig from '@modules/auth/config/zitadel.config';
 @Module({
-	controllers: [AppController],
-  providers: [ConfigService, AppService],
+	// controllers: [AppController],
+	providers: [
+		ConfigService,
+		// AppService
+	],
 	imports: [
-		AuthModule,
-/* 		ZitadelAuthModule.forRootAsync({
+		ConfigModule.forRoot({
+			load: [ZitadelConfig],
+			isGlobal: true,
+			validationOptions: {
+				abortEarly: true,
+			},
+		}),
+		AuthModule.forRootAsync({
 			inject: [ConfigService],
 			imports: [ConfigModule],
-			useFactory: (config: ConfigService): ZitadelAuthModuleConfig => {
+			useFactory: (config: ConfigService): ZitadelIntrospectionOptions => {
 				return {
 					authority: config.getOrThrow<string>('IDP_AUTHORITY'),
 					authorization: {
@@ -38,14 +46,8 @@ import { UsersModule } from './modules/users/users.module';
 					},
 				};
 			},
-		}), */
-		ConfigModule.forRoot({
-			envFilePath: '.dev.env',
-			isGlobal: true,
-			validationOptions: {
-				abortEarly: true,
-			},
 		}),
+
 		AuthModule,
 		UsersModule,
 	],

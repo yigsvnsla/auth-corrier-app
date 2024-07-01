@@ -1,0 +1,11 @@
+import { registerAs } from '@nestjs/config';
+
+export default registerAs('zitadel', () => ({
+	IDP_AUTHORITY: '',
+	IDP_AUTHORIZATION_TYPE: '',
+	IDP_AUTHORIZATION_PROFILE_TYPE: '',
+	IDP_AUTHORIZATION_PROFILE_KEY_ID: '',
+	IDP_AUTHORIZATION_PROFILE_KEY: '',
+	IDP_AUTHORIZATION_PROFILE_APP_ID: '',
+	IDP_AUTHORIZATION_PROFILE_CLIENT_ID: '',
+}));

@@ -1,26 +1,45 @@
-version: '3.8'
-
 services:
-  zitadel:
-    restart: 'always'
+  maildev:
+    image: maildev/maildev
+    environment:
+      - MAILDEV_INCOMING_USER=maildev
+      - MAILDEV_INCOMING_PASS=maildev
     networks:
-      - 'zitadel'
+      - zitadel
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+  zitadel:
+    restart: always
+    networks:
+      - zitadel
     image: 'ghcr.io/zitadel/zitadel:latest'
     command: 'start-from-init --masterkey "MasterkeyNeedsToHave32Characters" --tlsMode disabled'
     environment:
-      - 'ZITADEL_DATABASE_POSTGRES_HOST=db'
-      - 'ZITADEL_DATABASE_POSTGRES_PORT=5432'
-      - 'ZITADEL_DATABASE_POSTGRES_DATABASE=zitadel'
-      - 'ZITADEL_DATABASE_POSTGRES_USER_USERNAME=zitadel'
-      - 'ZITADEL_DATABASE_POSTGRES_USER_PASSWORD=zitadel'
-      - 'ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE=disable'
-      - 'ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME=postgres'
-      - 'ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD=postgres'
-      - 'ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE=disable'
-      - 'ZITADEL_EXTERNALSECURE=false'
+      - ZITADEL_DATABASE_POSTGRES_HOST=db
+      - ZITADEL_DATABASE_POSTGRES_PORT=5432
+      - ZITADEL_DATABASE_POSTGRES_DATABASE=zitadel
+      - ZITADEL_DATABASE_POSTGRES_USER_USERNAME=zitadel
+      - ZITADEL_DATABASE_POSTGRES_USER_PASSWORD=zitadel
+      - ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE=disable
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME=postgres
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD=postgres
+      - ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE=disable
+      - ZITADEL_EXTERNALSECURE=false
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_SMTP_HOST= maildev:1025
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_SMTP_USER
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_SMTP_PASSWORD
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_TLS=false
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_FROM=noreply@tudominio.com
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_FROMNAME=Zitadel
+      # - ZITADEL_DEFAULTINSTANCE_SMTPCONFIGURATION_REPLYTOADDRESS=soporte@tudominio.com
+
     depends_on:
       db:
         condition: 'service_healthy'
+      maildev:
+        condition: 'service_started'
     ports:
       - '8080:8080'
 
@@ -32,9 +51,9 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=zitadel
     networks:
-      - 'zitadel'
+      - zitadel
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-d", "zitadel", "-U", "postgres"]
+      test: ['CMD-SHELL', 'pg_isready -d zitadel -U postgres']
       interval: '10s'
       timeout: '30s'
       retries: 5
@@ -42,5 +61,3 @@ services:
 
 networks:
   zitadel:
-
-# 273334151531266051@courier
