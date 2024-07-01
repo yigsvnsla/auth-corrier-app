@@ -28,18 +28,18 @@ import metadata from './metadata';
 import { Issuer } from 'openid-client';
 
 async function bootstrap() {
-	const { Client } = await Issuer.discover('http://localhost:8080');
-	const client = new Client({
-		client_id: '273992634912014357@nest-app',
-		client_secret: '',
-	});
+	// const { Client } = await Issuer.discover('http://localhost:8080');
+	// const client = new Client({
+	// 	client_id: '273992634912014357@nest-app',
+	// 	client_secret: '',
+	// });
 
-	client.grant({
-		username: 'foo@user',
-		password: 'Password1!!',
-		grant_type: 'authorization_code',
-		scope: 'openid',
-	});
+	// client.grant({
+	// 	username: 'foo@user',
+	// 	password: 'Password1!!',
+	// 	grant_type: 'authorization_code',
+	// 	scope: 'openid',
+	// });
 
 	const globalPrefix: string = '/api';
 	const scopes: string[] = ['openid', 'profile', 'email', 'offline_access'];
@@ -64,13 +64,13 @@ async function bootstrap() {
 
 	const config: ConfigService = app.get(ConfigService);
 
-	const port: number = config.getOrThrow<number>('APP_PORT');
-	const clientId: string = config.getOrThrow<string>('OPENAPI_CLIENT_ID');
-	const authority: string = config.getOrThrow<string>('IDP_AUTHORITY');
-	const isProduction: boolean = config.get<string>('NODE_ENV') !== 'production';
-	const clientSecret: string = config.getOrThrow<string>(
-		'OPENAPI_CLIENT_SECRET',
+	const port: number = config.getOrThrow<number>('APP.PORT');
+	const clientId: string = config.getOrThrow<string>(
+		'ZITADEL.IDP_AUTHORIZATION_PROFILE_CLIENT_ID',
 	);
+	const authority: string = config.getOrThrow<string>('ZITADEL.IDP_AUTHORITY');
+	const isProduction: boolean =
+		config.get<string>('APP.NODE_ENV') !== 'production';
 
 	const redirectUri = isProduction
 		? `http://localhost:${port}`
@@ -80,9 +80,11 @@ async function bootstrap() {
 		swaggerOptions: {
 			persistAuthorization: true,
 			oauth2RedirectUrl: `${redirectUri}${globalPrefix}/oauth2-redirect.html`,
-			initOAuth: { clientId, clientSecret, scopes },
+			initOAuth: { clientId, scopes },
 		},
 	};
+
+	await SwaggerModule.loadPluginMetadata(metadata); // <-- here
 
 	// ! FIXME json import assertions in the future
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -102,7 +104,6 @@ async function bootstrap() {
 			name: 'Zitadel',
 			openIdConnectUrl: `${authority}/.well-known/openid-configuration`,
 		});
-	await SwaggerModule.loadPluginMetadata(metadata); // <-- here
 	const document: OpenAPIObject = SwaggerModule.createDocument(
 		app,
 		swaggerDocument.build(),
@@ -110,11 +111,12 @@ async function bootstrap() {
 
 	SwaggerModule.setup(globalPrefix.slice(1), app, document, swaggerSetupModule);
 
-	if (isProduction)
+	if (isProduction) {
 		fs.writeFileSync(
 			path.join(__dirname, '..', 'swagger.json'),
 			JSON.stringify(document),
 		);
+	}
 	await app.listen(port);
 	Logger.log(`Server Running on: ${await app.getUrl()}`, 'NestApplication');
 }
